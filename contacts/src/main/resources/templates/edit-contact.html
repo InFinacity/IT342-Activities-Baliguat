@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Contact</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f0e6f8; /* Light purple background */
+            color: #333;
+        }
+
+        h2 {
+            color: #6a0dad; /* Dark purple for headings */
+        }
+
+        form {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #6a0dad; /* Dark purple label */
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #d8b4fe; /* Light purple border */
+            border-radius: 4px;
+        }
+
+        button[type="submit"] {
+            width: 50%;
+            background-color: #9370db; /* Medium purple for buttons */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 10px;
+            align-self: center;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #800080; /* Darker purple on hover */
+        }
+
+        a {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #9370db; /* Medium purple link */
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #800080; /* Darker purple on hover */
+        }
+    </style>
+</head>
+<body>
+
+<h2>Edit Contact</h2>
+
+<form action="/update-contact" method="post">
+    <input type="hidden" name="resourceName" th:value="${contact.resourceName}" />
+
+    <label for="givenName">First Name:</label>
+    <input type="text" id="givenName" name="givenName" th:value="${contact.names != null and #lists.size(contact.names) > 0 ? contact.names[0].givenName : ''}" />
+
+    <label for="familyName">Last Name:</label>
+    <input type="text" id="familyName" name="familyName" th:value="${contact.names != null and #lists.size(contact.names) > 0 ? contact.names[0].familyName : ''}" />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" th:value="${contact.emailAddresses != null and #lists.size(contact.emailAddresses) > 0 ? contact.emailAddresses[0].value : ''}" />
+
+    <label for="phone">Phone:</label>
+    <input type="tel" id="phone" name="phone" th:value="${contact.phoneNumbers != null and #lists.size(contact.phoneNumbers) > 0 ? contact.phoneNumbers[0].value : ''}" />
+
+    <button type="submit">Update Contact</button>
+</form>
+
+<a href="/contacts" class="back-link">Back to Contacts</a>
+
+</body>
+</html>
